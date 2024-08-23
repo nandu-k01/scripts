@@ -17,17 +17,18 @@ colcon build --symlink-install
 
 # Install necessary dependencies
 echo "Installing dependencies..."
-sudo apt update
-sudo apt install -y python3-vcstool
-sudo apt install -y ros-humble-test-msgs ros-humble-control-toolbox ros-humble-gazebo-ros-pkgs ros-humble-xacro ros-humble-joint-state-publisher-gui
+apt update
+apt install -y python3-vcstool
+apt install -y ros-humble-test-msgs ros-humble-control-toolbox ros-humble-gazebo-ros-pkgs ros-humble-xacro ros-humble-joint-state-publisher-gui
 
 # Download and build ROS2 Control Framework
 echo "Downloading and building ROS2 Control Framework..."
 mkdir -p ~/ros2_ws/src
 cd ~/ros2_ws/
 vcs import --input https://raw.githubusercontent.com/ros-controls/ros2_control_ci/master/ros_controls.$ROS_DISTRO.repos src
+rosdep init
 rosdep update --rosdistro=$ROS_DISTRO
-sudo apt-get update
+apt-get update
 rosdep install --from-paths src --ignore-src -r -y
 source /opt/ros/$ROS_DISTRO/setup.sh
 colcon build --symlink-install --executor sequential

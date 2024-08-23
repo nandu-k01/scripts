@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Exit on any error
+set -e
+
 # Set locale
 echo "Setting locale..."
 locale  # Check for UTF-8 support
